@@ -15,8 +15,8 @@ const counter = () => {
 
 setInterval(() => (counter()), 4000);
 
-document.querySelector(`.svg-text`).onmouseover = () =>
-  document.querySelector(`.meow`).style.backgroundColor = `#4d71cf`;
+document.querySelector(`.ruby__svg-text`).onmouseover = () =>
+  document.querySelector(`.ruby`).style.backgroundColor = `#4d71cf`;
 
-document.querySelector(`.svg-text`).onmouseout = () =>
-  document.querySelector(`.meow`).style.backgroundColor = `white`;
+document.querySelector(`.ruby__svg-text`).onmouseout = () =>
+  document.querySelector(`.ruby`).style.backgroundColor = `white`;
