@@ -13,7 +13,7 @@ const counter = () => {
   block.innerHTML = `&nbsp;&nbsp;${count}&nbsp;&nbsp;`;
 };
 
-setInterval(() => (counter()), 5000);
+setInterval(() => (counter()), 4000);
 
 document.querySelector(`.svg-text`).onmouseover = () =>
   document.querySelector(`.meow`).style.backgroundColor = `#4d71cf`;
