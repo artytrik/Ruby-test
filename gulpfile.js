@@ -5,6 +5,7 @@ const postcss = require('gulp-postcss');
 const server = require('browser-sync').create();
 const del = require('del');
 const autoprefixer = require('autoprefixer');
+const surge = require('gulp-surge');
 
 gulp.task('style', () => (
   gulp.src('source/less/style.less')
@@ -50,6 +51,13 @@ gulp.task('serve', () => {
   gulp.watch('source/*html', gulp.series('copy', 'reload'));
   gulp.watch('source/js/**/*.js', gulp.series('copy', 'reload'));
 })
+
+gulp.task('deploy', () => (
+  surge({
+    project: 'build',
+    domain: 'ruby-test-trik.surge.sh'
+  })
+));
 
 gulp.task('build', gulp.series('clean', gulp.parallel('copy', 'style')));
 
