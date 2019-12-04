@@ -4,6 +4,8 @@ const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const server = require('browser-sync').create();
 const del = require('del');
+const minify = require("gulp-csso");
+const rename = require("gulp-rename");
 const autoprefixer = require('autoprefixer');
 const surge = require('gulp-surge');
 
@@ -15,6 +17,8 @@ gulp.task('style', () => (
       autoprefixer()
     ]))
     .pipe(gulp.dest('build/css'))
+    .pipe(minify())
+    .pipe(rename("style.min.css"))
     .pipe(gulp.dest('build/css'))
     .pipe(server.stream()))
 );
