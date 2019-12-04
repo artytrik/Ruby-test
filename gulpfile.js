@@ -8,6 +8,7 @@ const minify = require("gulp-csso");
 const rename = require("gulp-rename");
 const autoprefixer = require('autoprefixer');
 const surge = require('gulp-surge');
+const pug = require('gulp-pug');
 
 gulp.task('style', () => (
   gulp.src('source/less/style.less')
@@ -23,9 +24,16 @@ gulp.task('style', () => (
     .pipe(server.stream()))
 );
 
+gulp.task('html', () => (
+  gulp.src('source/*.pug')
+    .pipe(pug({
+      pretty: true
+    }))
+    .pipe(gulp.dest('build'))
+));
+
 gulp.task('copy', () => (
   gulp.src([
-    'source/*.html',
     'source/js/*.js'
   ],  {
     base: 'source'
@@ -52,7 +60,7 @@ gulp.task('serve', () => {
   })
 
   gulp.watch('source/less/**/*.less', gulp.series('style'));
-  gulp.watch('source/*html', gulp.series('copy', 'reload'));
+  gulp.watch('source/*.pug', gulp.series('html', 'reload'));
   gulp.watch('source/js/**/*.js', gulp.series('copy', 'reload'));
 })
 
@@ -63,6 +71,6 @@ gulp.task('deploy', () => (
   })
 ));
 
-gulp.task('build', gulp.series('clean', gulp.parallel('copy', 'style')));
+gulp.task('build', gulp.series('clean', gulp.parallel('copy', 'html', 'style')));
 
 gulp.task('start', gulp.series('build', 'serve'));
